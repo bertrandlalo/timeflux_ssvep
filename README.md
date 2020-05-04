@@ -6,14 +6,13 @@ Installation
 You have the choice between virtual env or conda env:
 
 - conda env
-   .. code-block:: console
+   .. 
 
       $ conda env create -f  environment.yml
       $ conda activate ssvep-env
 
 - virtual env
-   .. code-block:: console
-
+   ..
       $ python3 -m venv ssvep-env
       $ source ssvep-env/bin/activate
       $ pip install -r requirements.txt
@@ -21,12 +20,12 @@ You have the choice between virtual env or conda env:
 Usage
 ======
 - Notebooks
-   .. code-block:: console
+   .. 
 
       $ jupyter notebook
       
-- Script to get HDF5 data
-    .. code-block:: console
+- Script to get HDF5  (todo: parse args to allow user to choose params)
+    .. 
 
       $ python make_hdf5.py
 
