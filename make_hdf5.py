@@ -127,8 +127,8 @@ def make_subject_hdf5(session_data: dict, output: str,
     df_eeg_test, df_events_test = runs_to_frames(session_data, test_runs, stim_to_event=stim_to_event)
 
     # add train sequence events
-    df_events_train.iloc[df_events_train.dropna().index[0] - 1].label = 'train_starts'
-    df_events_train.iloc[-1].label = 'train_stops'
+    df_events_train.loc[df_events_train.index[df_events_train.dropna().index[0] - 1], 'label'] = 'train_starts'
+    df_events_train.loc[df_events_train.index[-1], 'label'] = 'train_stops'
 
     # concatenate train data and test data (to simulate a real experiment)
     df_eeg = pd.concat([df_eeg_train, df_eeg_test])
@@ -141,7 +141,7 @@ def make_subject_hdf5(session_data: dict, output: str,
     df_eeg.index = times
 
     # drop NaN from events to avoid mixed types in hdf5
-    df_events.dropna(inplace=True)
+    df_events.dropna(inplace=True, how='all')
 
     # save to hdf5 stores
     df_eeg.to_hdf(output, '/eeg', format='table')
@@ -158,13 +158,13 @@ def make_subjects_hdf5(**kwargs):
 
 
 if __name__ == "__main__":
-    onset_label = 'flickering_starts'
-    data_key = 'target'
+    onset_label = "flickering_starts"
+    data_key = "target"
     stim_to_event = {
-        1: {'label': onset_label, 'data': json.dumps({data_key: '13Hz'})},
-        2: {'label': onset_label, 'data': json.dumps({data_key: '17Hz'})},
-        3: {'label': onset_label, 'data': json.dumps({data_key: '21Hz'})},
-        4: {'label': onset_label, 'data': json.dumps({data_key: 'rest'})},
+        1: {'label': onset_label, 'data': json.dumps({data_key: "13Hz"})},
+        2: {'label': onset_label, 'data': json.dumps({data_key: "17Hz"})},
+        3: {'label': onset_label, 'data': json.dumps({data_key: "21Hz"})},
+        4: {'label': onset_label, 'data': json.dumps({data_key: "rest"})},
         'default': {'label': np.NaN, 'data': np.NaN},
     }
 
