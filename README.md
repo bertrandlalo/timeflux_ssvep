@@ -33,7 +33,9 @@ Usage
 
     - this should download data from MOABB and convert them in HDF5
    timeflux-replayable data that will be stored in folder ./data
-
+    - By default, `train_runs=('run_0',)`, ie. the first run will be considered as 
+    calibration data and the rest as test data. You can change those if you wish. 
+    
 - Timeflux
     .. code-block:: console
 
