@@ -58,14 +58,12 @@ def raw_to_frames(raw: mne.io.fiff.raw.Raw, stim_to_event: dict) -> (pd.DataFram
         8000     NaN
         9000     NaN
     """
-    if 'default' not in stim_to_event:
-        raise ValueError('Default should be speecified in `stim_to_event`.')
 
     df_eeg = raw.to_data_frame(picks=mne.pick_types(raw.info, eeg=True, stim=False))
-    df_stim = raw.to_data_frame(picks=mne.pick_types(raw.info, eeg=False, stim=True))
-    events_values = list(map(lambda stim: stim_to_event.get(stim, stim_to_event.get('default')),
-                             list(df_stim.values[:, 0])))
-    df_events = pd.DataFrame(events_values, index=df_stim.index)
+    raw_stim = mne.find_events(raw)
+    events_stim = pd.DataFrame(list(map(lambda stim: stim_to_event.get(stim), list(raw_stim[:, 2]))))
+    df_events = pd.DataFrame(index=df_eeg.index, columns=events_stim.columns)
+    df_events.iloc[raw_stim[:, 0], :] = events_stim.values
     return df_eeg, df_events
 
 
@@ -130,8 +128,8 @@ def make_subject_hdf5(session_data: dict, output: str,
     df_eeg_test, df_events_test = runs_to_frames(session_data, test_runs, stim_to_event=stim_to_event)
 
     # add train sequence events
-    df_events_train.iloc[df_events_train.dropna().index[0] - 1, :] = ['train_starts', '{}']
-    df_events_train.iloc[-1, :] = ['train_stops', '{}']
+    df_events_train.iloc[df_events_train.dropna().index[0] - 1].label = 'train_starts'
+    df_events_train.iloc[-1].label = 'train_stops'
 
     # concatenate train data and test data (to simulate a real experiment)
     df_eeg = pd.concat([df_eeg_train, df_eeg_test])
