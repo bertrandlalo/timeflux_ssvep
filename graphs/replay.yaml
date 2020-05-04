@@ -1,0 +1,46 @@
+graphs:
+  - id: Replay
+    nodes:
+      - id: replay
+        module: timeflux.nodes.hdf5
+        class: Replay
+        params:
+          filename: data/12.hdf5
+          keys:
+            - /eeg
+            - /events
+          speed: 1
+          resync: False
+
+      - id: pub_eeg
+        module: timeflux.nodes.zmq
+        class: Pub
+        params:
+          topic: eeg
+
+      - id: deserialize
+        module: timeflux_bci.nodes.serialize
+        class: DeserializeColumn
+
+      - id: pub_events
+        module: timeflux.nodes.zmq
+        class: Pub
+        params:
+          topic: events #sp_events
+
+      - id: display
+        module: timeflux.nodes.debug
+        class: Display
+
+    edges:
+      - source: replay:eeg
+        target: pub_eeg
+      - source: replay:events
+        target: deserialize
+      - source: deserialize
+        target: pub_events
+
+      - source: replay:events
+        target: display
+
+    rate: 0

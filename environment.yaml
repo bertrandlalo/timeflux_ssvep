@@ -1,0 +1,22 @@
+name: ssvep-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python>=3.6,<3.8
+  - matplotlib
+  - numpy
+  - jupyter
+  - numpy>=1.17.3,<1.18
+  - scikit-learn>=0.22.1,<0.23
+  - pandas>=0.23.4,<0.24
+  - scipy>=1.1
+  - seaborn
+  - h5py
+  # Extra pip dependencies
+  - pip
+  - pip:
+      - mne>=0.19,<0.20
+      - git+https://github.com/NeuroTechX/moabb#egg=moabb
+      - git+https://github.com/bertrandlalo/pyRiemann
+      - git+https://github.com/timeflux/timeflux.git@38c9551#egg=timeflux

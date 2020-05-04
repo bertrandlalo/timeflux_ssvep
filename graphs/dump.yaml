@@ -1,0 +1,17 @@
+graphs:
+  - id: Save
+    nodes:
+      - id: sub
+        module: timeflux.nodes.zmq
+        class: Sub
+        params:
+          topics: [events]
+
+      - id: dump
+        module: timeflux.nodes.debug
+        class: Dump
+        params:
+          fname: data/out/predictions_12.csv
+    edges:
+      - source: sub:events
+        target: dump
