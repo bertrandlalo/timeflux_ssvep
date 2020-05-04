@@ -7,6 +7,10 @@ graphs:
         params:
           topics: [eeg, events]
 
+      - id: deserialize
+        module: timeflux_bci.nodes.serialize
+        class: DeserializeColumn
+
       - id: epochs
         module: timeflux.nodes.epoch
         class: Epoch
@@ -52,12 +56,14 @@ graphs:
       - source: sub:eeg
         target: epochs
       - source: sub:events
+        target: deserialize
+      - source: deserialize
         target: epochs:events
       - source: epochs
         target: fit_predict:training_0
       - source: epochs
         target: fit_predict:0
-      - source: sub:events
+      - source: deserialize
         target: fit_predict:events
 
       - source: fit_predict:events

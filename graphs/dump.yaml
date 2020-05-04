@@ -8,10 +8,16 @@ graphs:
           topics: [events]
 
       - id: dump
-        module: timeflux.nodes.debug
+        module: nodes.dump
         class: Dump
         params:
-          fname: data/out/predictions_12.csv
+          fname: data/out/predictions_1.csv
+
+      - id: display
+        module: timeflux.nodes.debug
+        class: Display
     edges:
       - source: sub:events
         target: dump
+      - source: sub:events
+        target: display
