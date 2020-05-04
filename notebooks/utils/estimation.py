@@ -134,13 +134,15 @@ class SSVEPCovariance(BaseEstimator, TransformerMixin):
 
 
 class SSVEPPotato(BaseEstimator, TransformerMixin):
-    """
+    """Estimate potato field per class
     """
 
-    def __init__(self, classes: tuple = None, threshold=.1, n_iter_max=100, pos_label=1, neg_label=0):
+    def __init__(self, classes: tuple = None, potato_threshold: float = .1, field_threshold: float = .1,
+                 n_iter_max: int = 100, pos_label=1, neg_label=0):
         """Init."""
         self.classes = classes
-        self.threshold = threshold
+        self.potato_threshold = potato_threshold
+        self.field_threshold = field_threshold
         self.n_iter_max = n_iter_max
         self.pos_label = pos_label
         self.neg_label = neg_label
@@ -167,7 +169,7 @@ class SSVEPPotato(BaseEstimator, TransformerMixin):
         self._potatoes = []
         for _class in self.classes:
             X_class = X[y == _class, :, :]
-            potato = Potato(n_iter_max=self.n_iter_max).fit(X_class)
+            potato = Potato(n_iter_max=self.n_iter_max, threshold=self.potato_threshold).fit(X_class)
             self._potatoes.append(potato)
 
         return self
@@ -213,7 +215,7 @@ class SSVEPPotato(BaseEstimator, TransformerMixin):
             the trial contain an artifact.
         """
         p = self.transform(X)
-        pred = p < self.threshold
+        pred = p < self.field_threshold
         out = np.zeros_like(p) + self.neg_label
         out[pred] = self.pos_label
         return out
