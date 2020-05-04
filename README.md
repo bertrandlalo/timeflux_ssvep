@@ -23,7 +23,10 @@ Usage
    .. 
 
       $ jupyter notebook
-      
+        
+        - "SSVEPCovariance and SSVEPPotato .ipynb" illustrate the sklearn pipeline offline
+        - "Timeflux prediction.ipynb" loads the csv output file from Timeflux with 
+        events and predictions and plot a confusion matrix ( todo?: we could wake this a node)
 - Script to get HDF5  (todo: parse args to allow user to choose params)
     .. 
 
@@ -39,7 +42,8 @@ Usage
 
       $ timeflux -d graphs/main.yaml
       
-    - This will replay data from one subject 'in real time' 
+    - This will replay data from one subject 'in real time'
+      /!\ takes between 9 and 18 minutes to run - as long as the experiment /!\
     - If you want to try an choose the subject to replay, change line 8 in file
     `graphs/replay.yaml`. Default is `filename: data/12.hdf5`.
     - This should display events and predictions in the console.
@@ -58,9 +62,9 @@ Usage
     |...              |  ...                     |  ...                            |
     |train_stops      | {}                       | 2020-01-01 00:05:53.621093750   |
     | flickering_starts| {'target': '13Hz'}       | 2020-01-01 00:06:39.941406250   |
-    |predict          | "{""result"": ""13Hz""}" | 2020-01-01 00:06:38.941406250   |
+    |predict          |{'result': '13Hz'}        | 2020-01-01 00:06:38.941406250   |
     |flickering_starts | {'target': '13Hz'}       | 2020-01-01 00:06:48.941406250   |
-    |predict          | "{""result"": ""13Hz""}" | 2020-01-01 00:06:47.941406250   |
+    |predict          |{'result': '13Hz'}        | 2020-01-01 00:06:47.941406250   |
 
 
 
