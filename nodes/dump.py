@@ -2,7 +2,6 @@
 import csv
 import pandas as pd
 from timeflux.core.node import Node
-from timeflux.core.exceptio
 
 class Dump(Node):
     """Dump to CSV."""
