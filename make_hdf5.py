@@ -15,7 +15,6 @@ def raw_to_frames(raw: mne.io.fiff.raw.Raw, stim_to_event: dict) -> (pd.DataFram
     raw: raw object with channels of type 'eeg' en 'stim'
     stim_to_event: dict giving correspondence between stim values
      in raw and events row in DataFrame.
-     'default' is considered for all stim values outside stim_to_event keys.
 
     Returns
     -------
@@ -75,7 +74,7 @@ def runs_to_frames(session_data: dict,
     Parameters
     ----------
     session_data: dict with keys are run names and values are Raw objects
-    runs: tuple with run namees to concatenate
+    runs: tuple with run names to concatenate
     stim_to_event: correspondence between stim and events. See `raw_to_frames`
 
     Returns
