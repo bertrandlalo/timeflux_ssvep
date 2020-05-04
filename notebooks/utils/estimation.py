@@ -135,11 +135,19 @@ class SSVEPCovariance(BaseEstimator, TransformerMixin):
 
 class SSVEPPotato(BaseEstimator, TransformerMixin):
     """Estimate potato field per class
+        Parameters
+        ----------
+        classes: classes to consider in potato field (one potato per class)
+        potato_threshold: threshold for each potato
+        field_threshold: threshold for the potato field
+        n_iter_max: max iteration allowed for potato convergence
+        pos_label: label for accepted trials in predict
+        neg_label: label for rejected trials in predict
     """
 
     def __init__(self, classes: tuple = None, potato_threshold: float = .1, field_threshold: float = .1,
                  n_iter_max: int = 100, pos_label=1, neg_label=0):
-        """Init."""
+
         self.classes = classes
         self.potato_threshold = potato_threshold
         self.field_threshold = field_threshold
