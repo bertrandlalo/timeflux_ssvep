@@ -58,7 +58,7 @@ def raw_to_frames(raw: mne.io.fiff.raw.Raw, stim_to_event: dict) -> (pd.DataFram
         9000     NaN
     """
 
-    df_eeg = raw.to_data_frame(picks=mne.pick_types(raw.info, eeg=True, stim=False))
+    df_eeg = raw.to_data_frame(picks=mne.pick_types(raw.info, eeg=True, stim=False), index='time')
     raw_stim = mne.find_events(raw)
     events_stim = pd.DataFrame(list(map(lambda stim: stim_to_event.get(stim), list(raw_stim[:, 2]))))
     df_events = pd.DataFrame(index=df_eeg.index, columns=events_stim.columns)
