@@ -13,8 +13,8 @@ You have the choice between virtual env or conda env:
 
 - virtual env
    ..
-      $ python3 -m venv ssvep-env
-      $ source ssvep-env/bin/activate
+      $ python3 -m venv venv
+      $ source venv/bin/activate
       $ pip install -r requirements.txt
 
 Usage
