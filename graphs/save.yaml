@@ -7,17 +7,18 @@ graphs:
         params:
           topics: [events]
 
-      - id: dump
-        module: nodes.dump
-        class: Dump
+      - id: save
+        module: timeflux.nodes.hdf5
+        class: Save
         params:
-          fname: data/out/predictions_1.csv
+          path: data/out
+          filename: predictions_1_tmp.hdf5
 
       - id: display
         module: timeflux.nodes.debug
         class: Display
     edges:
       - source: sub:events
-        target: dump
+        target: save:replayed_events
       - source: sub:events
         target: display

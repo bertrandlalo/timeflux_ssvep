@@ -40,7 +40,7 @@ graphs:
                 flickering_frequencies: [13, 17, 21]
                 estimator: lwf
             - module: pyriemann.classification
-              class: MDM
+              class: MDM  #MDMWithPotato
 
       - id: pub
         module: timeflux.nodes.zmq
@@ -65,10 +65,6 @@ graphs:
         target: fit_predict:0
       - source: deserialize
         target: fit_predict:events
-
-      - source: fit_predict:events
-        target: display
-
       - source: fit_predict:events
         target: pub
 
