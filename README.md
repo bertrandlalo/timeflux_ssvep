@@ -1,5 +1,8 @@
 Online SSVEP in Riemanian manifold
 ==================================
+Pre-requisite
+=============
+Follow [Timeflux Getting Started](https://doc.timeflux.io/en/stable/usage/getting_started.html) Instructions. 
 
 Installation
 ============
