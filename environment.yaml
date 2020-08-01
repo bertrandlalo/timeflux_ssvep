@@ -14,11 +14,11 @@ dependencies:
   - jupyter
   - matplotlib
   - seaborn
+  - timeflux==0.6.2.dev2
   # Extra pip dependencies
   - pip
   - pip:
       - mne>=0.19,<0.20
       - git+https://github.com/NeuroTechX/moabb#egg=moabb
       - git+https://github.com/bertrandlalo/pyRiemann
-      - git+https://github.com/timeflux/timeflux.git@194aaf6#egg=timeflux
       - git+https://github.com/timeflux/timeflux_bci.git@9407f7b#egg=timeflux_bci
