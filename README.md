@@ -6,17 +6,17 @@ Installation
 You have the choice between virtual env or conda env:
 
 - conda env
-   .. 
-
-      $ conda env create -f  environment.yml
-      $ conda activate ssvep-env
+   ```
+      conda env create -f  environment.yml
+      conda activate ssvep-env
+   ```
 
 - virtual env
-   ..
-      $ python3 -m venv venv
-      $ source venv/bin/activate
-      $ pip install -r requirements.txt
-
+   ```
+      python3 -m venv venv
+      source venv/bin/activate
+      pip install -r requirements.txt
+    ```
 Usage
 ======
 - Notebooks
