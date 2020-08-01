@@ -24,7 +24,7 @@ Usage
 
       $ jupyter notebook
         
-        - "SSVEPCovariance and SSVEPPotato .ipynb" illustrate the sklearn pipeline offline
+        - "Online-Offline.ipynb" illustrate the sklearn pipeline offline
         - "Timeflux prediction.ipynb" loads the csv output file from Timeflux with 
         events and predictions and plot a confusion matrix ( todo?: we could wake this a node)
 - Script to get HDF5  (todo: parse args to allow user to choose params)
@@ -40,15 +40,19 @@ Usage
 - Timeflux
     .. code-block:: console
 
-      $ timeflux -d graphs/main.yaml
+      $  timeflux -d graphs/main.yaml
       
-    - This will replay data from one subject 'in real time'
+    - This will replay data from one subject 'in real time' (by default, subject 12)
       /!\ takes between 9 and 18 minutes to run - as long as the experiment /!\
-    - If you want to try an choose the subject to replay, change line 8 in file
-    `graphs/replay.yaml`. Default is `filename: data/12.hdf5`.
+    - If you want to try an choose the subject to replay, set variable FILE in your 
+      environment, or launch the command with -e FILE={subject-number-between-1-and-12}.  
+      For example, to replay data from subject #1, run : 
+        .. code-block:: console
+        $  timeflux -e FILE=1 -d graphs/main.yaml
     - This should display events and predictions in the console.
-    - The output events will be dumped in a csv with name set lin 14 of file
-    `graphs/dump.yaml`.  Default is `predictions_12.csv`.
+    - The output events will be dumped in a csv with name set line 14 of file
+    `graphs/dump.yaml` :  `predictions_{FILE}.csv`.
+    
     -  Output looks like :
 
     
@@ -65,6 +69,15 @@ Usage
     |predict          |{'result': '13Hz'}        | 2020-01-01 00:06:38.941406250   |
     |flickering_starts | {'target': '13Hz'}       | 2020-01-01 00:06:48.941406250   |
     |predict          |{'result': '13Hz'}        | 2020-01-01 00:06:47.941406250   |
+    
+    ![Timeflux CLI](timeflux_cmd.gif)
+
+
+Results 
+=======
+    ![Subject 1](notebooks/fig_confusion_1.png)
+    ![Subject 2](notebooks/fig_confusion_2.png)
+
 
 
 
