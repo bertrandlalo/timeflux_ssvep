@@ -70,13 +70,14 @@ Usage
     |flickering_starts | {'target': '13Hz'}       | 2020-01-01 00:06:48.941406250   |
     |predict          |{'result': '13Hz'}        | 2020-01-01 00:06:47.941406250   |
     
-    ![Timeflux CLI](timeflux_cmd.gif)
+   
+   ![Timeflux CLI](timeflux_cmd.gif)
 
 
 Results 
 =======
-    ![Subject 1](notebooks/fig_confusion_1.png)
-    ![Subject 2](notebooks/fig_confusion_2.png)
+   ![Subject 1](notebooks/fig_confusion_1.png)
+   ![Subject 2](notebooks/fig_confusion_2.png)
 
 
 
