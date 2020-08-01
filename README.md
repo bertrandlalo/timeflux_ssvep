@@ -7,7 +7,7 @@ You have the choice between virtual env or conda env:
 
 - conda env
    ```
-      conda env create -f  environment.yml
+      conda env create -f  environment.yaml
       conda activate ssvep-env
    ```
 
