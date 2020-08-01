@@ -5,11 +5,11 @@ graphs:
         module: timeflux.nodes.hdf5
         class: Replay
         params:
-          filename: data/1.hdf5
+          filename: data/{{ FILE }}.hdf5
           keys:
             - /eeg
             - /events
-          speed: 1
+          speed: {{ SPEED }}
           resync: False
 
       - id: pub_eeg
@@ -22,7 +22,7 @@ graphs:
         module: timeflux.nodes.zmq
         class: Pub
         params:
-          topic: events #sp_events
+          topic: events
 
       - id: display
         module: timeflux.nodes.debug

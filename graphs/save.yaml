@@ -12,7 +12,7 @@ graphs:
         class: Save
         params:
           path: data/out
-          filename: predictions_1_tmp.hdf5
+          filename: predictions_{{ FILE }}.hdf5
 
       - id: display
         module: timeflux.nodes.debug
