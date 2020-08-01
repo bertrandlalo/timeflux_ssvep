@@ -26,20 +26,9 @@ Usage
     - this should download data from MOABB and convert them in HDF5
    timeflux-replayable data that will be stored in folder ./data
     - By default, `train_runs=('run_0',)`, ie. the first run will be considered as 
-    calibration data and the rest as test data. You can change those if you wish. 
-    
-- Notebooks
+    calibration data and the rest as test data. You can change those if you wish.     
 
-   ```
-     jupyter notebook
-   ```
-  
-     - "Online-Offline.ipynb" illustrate the sklearn pipeline offline
-     - "Timeflux prediction.ipynb" loads the csv output file from Timeflux with 
-     events and predictions and plot a confusion matrix 
-     
-
-- Timeflux
+- Replay the data and online SSVEP fit_predict with Timeflux
     ```
       timeflux -d graphs/main.yaml
     ```  
@@ -78,7 +67,17 @@ Usage
    
    ![Timeflux CLI](timeflux_cmd.gif)
 
+    
+- Notebooks
 
+   ```
+     jupyter notebook
+   ```
+  
+     - "Online-Offline.ipynb" illustrate the sklearn pipeline offline
+     - "Timeflux prediction.ipynb" loads the csv output file from Timeflux with 
+     events and predictions and plot a confusion matrix 
+     
 References
 ===========
 - data: MOABB/SSVEPExo dataset from E. Kalunga PhD in University of Versailles [1]_. (url). (classes = rest, 13Hz, 17Hz, 21Hz)
