@@ -1,0 +1,24 @@
+graphs:
+  - id: Save
+    nodes:
+      - id: sub
+        module: timeflux.nodes.zmq
+        class: Sub
+        params:
+          topics: [events]
+
+      - id: save
+        module: timeflux.nodes.hdf5
+        class: Save
+        params:
+          path: data/out
+          filename: predictions_{{ FILE }}.hdf5
+
+      - id: display
+        module: timeflux.nodes.debug
+        class: Display
+    edges:
+      - source: sub:events
+        target: save:replayed_events
+      - source: sub:events
+        target: display

@@ -1,0 +1,71 @@
+graphs:
+  - id: Fit-Predict
+    nodes:
+      - id: sub
+        module: timeflux.nodes.zmq
+        class: Sub
+        params:
+          topics: [eeg, events]
+
+      - id: deserialize
+        module: timeflux_bci.nodes.serialize
+        class: DeserializeColumn
+
+      - id: epochs
+        module: timeflux.nodes.epoch
+        class: Epoch
+        params:
+          before: 1.
+          after: 7.
+          event_trigger: flickering_starts
+
+      - id: fit_predict
+        module: timeflux.nodes.ml
+        class: Pipeline
+        params:
+          mode: predict
+          event_start_accumulation: train_starts
+          event_stop_accumulation: train_stops
+          event_start_training: train_stops
+          steps:
+            - module: timeflux_bci.estimators.transformers.shape
+              class: Swapaxes
+              args:
+                axis1: 1 # channels
+                axis2: 2 # samples
+            - module: pyriemann.estimation
+              class: SSVEPCovariance
+              args:
+                rate: 256
+                flickering_frequencies: [13, 17, 21]
+                estimator: lwf
+            - module: pyriemann.classification
+              class: MDM  #MDMWithPotato
+
+      - id: pub
+        module: timeflux.nodes.zmq
+        class: Pub
+        params:
+          topic: events
+
+      - id: display
+        module: timeflux.nodes.debug
+        class: Display
+
+    edges:
+      - source: sub:eeg
+        target: epochs
+      - source: sub:events
+        target: deserialize
+      - source: deserialize
+        target: epochs:events
+      - source: epochs
+        target: fit_predict:training_0
+      - source: epochs
+        target: fit_predict:0
+      - source: deserialize
+        target: fit_predict:events
+      - source: fit_predict:events
+        target: pub
+
+    rate: 20
